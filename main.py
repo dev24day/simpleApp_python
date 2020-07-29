@@ -31,6 +31,7 @@ def save_as():
     with open(filename, 'w') as fs:
         text = text_edit.get("1.0", "end")
         fs.write(text)
+    window.title(f'simple Editor - {basename(filename)}')
 
 text_edit = tk.Text(window)
 frm_btn = tk.Frame(window, relief=tk.RAISED, bd=2)
