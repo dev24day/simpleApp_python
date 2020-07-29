@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog
-import getpass
+from os.path import abspath, basename
 
 window = tk.Tk()
 window.title("simple Editor")
@@ -8,19 +8,34 @@ window.rowconfigure(0, minsize=600, weight=1)
 window.columnconfigure(1, minsize=600, weight=1)
 
 # 함수 처리부
-def load():
+def open_text():
     filename = filedialog.askopenfilename(
-        initialdir=f"/tmp/{getpass.getuser()}",
+        initialdir=abspath(__file__),
         title="골라 골라~",
-        filetypes=(("txt files", "*.txt"), ("all files", "*.*")),
+        filetypes=(("txt files", "*.txt"), ("all files", "*.*"))
     )
-    print(filename)
+    if not filename: return
+    text_edit.delete("1.0", "end")
+    with open(filename, 'r') as fs:
+        text = fs.read()
+        text_edit.insert("end", text)
+    window.title(f'simple Editor - {basename(filename)}')
 
+def save_as():
+    filename = filedialog.asksaveasfilename(
+        initialdir=abspath(__file__),
+        title="저장",
+        filetypes=(("txt files", "*.txt"), ("all files", "*.*"))
+    )
+    if not filename: return
+    with open(filename, 'w') as fs:
+        text = text_edit.get("1.0", "end")
+        fs.write(text)
 
-text_edit = tk.Label(window)
+text_edit = tk.Text(window)
 frm_btn = tk.Frame(window, relief=tk.RAISED, bd=2)
-btn_open = tk.Button(frm_btn, text="open", command=lambda: load())
-btn_save = tk.Button(frm_btn, text="save as", command=lambda: print("save as"))
+btn_open = tk.Button(frm_btn, text="open", command=open_text)
+btn_save = tk.Button(frm_btn, text="save as", command=save_as)
 
 btn_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
 btn_save.grid(row=1, column=0, sticky="ew", padx=5)
