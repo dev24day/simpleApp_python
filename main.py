@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import filedialog
+import getpass
 
 window = tk.Tk()
 window.title("simple Editor")
@@ -7,16 +9,16 @@ window.columnconfigure(1, minsize=600, weight=1)
 
 # 함수 처리부
 def load():
-    window.filename = tk.filedialog.askopenfilename(
-        initialdir="/tmp",
-        title="choose file",
+    filename = filedialog.askopenfilename(
+        initialdir=f'/tmp/{getpass.getuser()}',
+        title="골라 골라~",
         filetypes=(("txt files", "*.txt"), ("all files", "*.*")),
     )
-
+    print(filename)
 
 text_edit = tk.Label(window)
 frm_btn = tk.Frame(window, relief=tk.RAISED, bd=2)
-btn_open = tk.Button(frm_btn, text="open", command=lambda: print("open"))
+btn_open = tk.Button(frm_btn, text="open", command=lambda: load())
 btn_save = tk.Button(frm_btn, text="save as", command=lambda: print("save as"))
 
 btn_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
