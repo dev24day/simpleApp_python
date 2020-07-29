@@ -12,26 +12,30 @@ def open_text():
     filename = filedialog.askopenfilename(
         initialdir=abspath(__file__),
         title="골라 골라~",
-        filetypes=(("txt files", "*.txt"), ("all files", "*.*"))
+        filetypes=(("txt files", "*.txt"), ("all files", "*.*")),
     )
-    if not filename: return
+    if not filename:
+        return
     text_edit.delete("1.0", "end")
-    with open(filename, 'r') as fs:
+    with open(filename, "r") as fs:
         text = fs.read()
         text_edit.insert("end", text)
-    window.title(f'simple Editor - {basename(filename)}')
+    window.title(f"simple Editor - {basename(filename)}")
+
 
 def save_as():
     filename = filedialog.asksaveasfilename(
         initialdir=abspath(__file__),
         title="저장",
-        filetypes=(("txt files", "*.txt"), ("all files", "*.*"))
+        filetypes=(("txt files", "*.txt"), ("all files", "*.*")),
     )
-    if not filename: return
-    with open(filename, 'w') as fs:
+    if not filename:
+        return
+    with open(filename, "w") as fs:
         text = text_edit.get("1.0", "end")
         fs.write(text)
-    window.title(f'simple Editor - {basename(filename)}')
+    window.title(f"simple Editor - {basename(filename)}")
+
 
 text_edit = tk.Text(window)
 frm_btn = tk.Frame(window, relief=tk.RAISED, bd=2)
