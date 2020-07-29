@@ -10,11 +10,12 @@ window.columnconfigure(1, minsize=600, weight=1)
 # 함수 처리부
 def load():
     filename = filedialog.askopenfilename(
-        initialdir=f'/tmp/{getpass.getuser()}',
+        initialdir=f"/tmp/{getpass.getuser()}",
         title="골라 골라~",
         filetypes=(("txt files", "*.txt"), ("all files", "*.*")),
     )
     print(filename)
+
 
 text_edit = tk.Label(window)
 frm_btn = tk.Frame(window, relief=tk.RAISED, bd=2)

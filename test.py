@@ -1,2 +1,4 @@
-import sys
-print(sys.modules)
+import getpass
+
+username = getpass.getuser()
+print(username)
